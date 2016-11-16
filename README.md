@@ -3,6 +3,7 @@
     * suurelt projekti veebirakenduse pilt;
     * rühma liikmeted: Sirje Maria Lehestik, Heino Pärn
     * eesmärki (3-4 lauset, mis probleemi üritate lahendada);
+	* Tahan koju!
 	
     Eesti Profifotograafide andmebaas/veebileht
 	Profifotograafid saavad endale teha kasutaja lisada portfoolio
