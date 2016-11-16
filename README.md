@@ -28,6 +28,13 @@
         * v0.4 Teiste fotograafide vaatamine+hindamine
 		* v0.5 Lehe külalisele fotograafide nimekiri+portfoolio+info
 		* v0.6 
+	*LEHED: *Login/Register
+			*Portfoolio loomine
+			*Portfoolio täiendamine
+			*Kasutaja profiil/portfoolio
+			*Fotograafide nimekiri
+			*Profiili muutmine/täiendamine
+			
     * andmebaasi skeem loetava pildina + tabelite loomise SQL laused (kui keegi teine tahab seda tööle panna);
 	Skeemi võtame otse phpmyadminist
     * **kokkuvõte:** mida õppisid juurde? mis ebaõnnestus? mis oli keeruline? (kirjutab iga tiimi liige).
