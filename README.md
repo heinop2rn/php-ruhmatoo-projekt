@@ -3,7 +3,6 @@
     * suurelt projekti veebirakenduse pilt;
     * rühma liikmeted: Sirje Maria Lehestik, Heino Pärn
     * eesmärki (3-4 lauset, mis probleemi üritate lahendada);
-	* Tahan koju!
 	
     Eesti Profifotograafide andmebaas/veebileht
 	Profifotograafid saavad endale teha kasutaja lisada portfoolio
@@ -29,5 +28,4 @@
 		* v0.5 Lehe külalisele fotograafide nimekiri+portfoolio+info
 		* v0.6 
     * andmebaasi skeem loetava pildina + tabelite loomise SQL laused (kui keegi teine tahab seda tööle panna);
-	Skeemi võtame otse phpmyadminist
     * **kokkuvõte:** mida õppisid juurde? mis ebaõnnestus? mis oli keeruline? (kirjutab iga tiimi liige).
