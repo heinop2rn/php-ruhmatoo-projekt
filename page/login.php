@@ -163,13 +163,13 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		<div class="row">
 			
 			<div class="col-sm-4 col-md-3">
-			<h1>Log in</h1>
+			<h1>Logi sisse</h1>
 
 		
 		<form method="POST">
 			<p style="Shipping:red;"><?=$error;?></p>
 			<div class="form-group">
-			<input class="form-control" name="loginEmail" type="email" placeholder="Email" value="<?php print $loginEmailAnswer; ?>"> <?php echo $loginEmailError; ?>
+			<input class="form-control" name="Username" type="text" placeholder="Kasutajanimi" value="<?php print $loginUsernameAnswer; ?>"> <?php echo $loginUsernameError; ?>
 			</div>
 				
 			<div class="form-group">
@@ -177,49 +177,51 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 			</div>
 			
 		
-			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Log in 1">
-			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Log in 2">
+			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Logi sisse">
+			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Logi sisse">
 			
 		</form>
 			</div>
 			
 			<div class="col-sm-4 col-md-3 col-sm-offset-4 col-md-offset-3">
-			<h1>Create a new account</h1>
+			<h1>Loo uus kasutaja</h1>
 		
 		<form method="POST">
+		
+			<div class="form-group">
+			<input class="form-control" type="text" name="signupName" placeholder="Ees- ja perekonnanimi" value="<?php print $signupNameAnswer;?>"> <?php echo $nameError; ?>
+			</div>
 			
 			<div class="form-group">
-			<input class="form-control" name="signupEmail" type="email" placeholder="Email" value="<?php print $signupEmailAnswer;?>"> <?php echo $signupEmailError; ?>
+			<input class="form-control" type="text" name="signupUsername" placeholder="Kasutajanimi" value="<?php print $signupUsernameAnswer;?>"> <?php echo $UsernameError; ?>
 			</div>
-		
+			
 			<div class="form-group">
 			<input class="form-control" name="signupPassword" type="password" placeholder="Password"> <?php echo $signupPasswordError; ?>
 			</div>
-		
+			
 			<div class="form-group">
-			<input class="form-control" type="text" name="signupName" placeholder="Full name" value="<?php print $signupNameAnswer;?>"> <?php echo $nameError; ?>
+			<input class="form-control" name="signupEmail" type="email" placeholder="E-Post" value="<?php print $signupEmailAnswer;?>"> <?php echo $signupEmailError; ?>
 			</div>
 		
 			
-			 <?php if($gender == "male") { ?>
-				<input type="radio" name="gender" value="male" checked> Male<br> 
+			 <?php if($role == "photographer") { ?>
+				<input type="radio" name="role" value="photographer" checked> Olen fotograaf<br> 
 			 <?php } else { ?>
-				<input type="radio" name="gender" value="male" > Male<br>
+				<input type="radio" name="role" value="photographer" > Olen fotograaf<br>
 			 <?php } ?>
 			 
-			 <?php if($gender == "female") { ?>
-				<input type="radio" name="gender" value="female" checked> Female<br>
+			 <?php if($role == "client") { ?>
+				<input type="radio" name="role" value="client" checked> Otsin fotograafi<br>
 			 <?php } else { ?>
-				<input type="radio" name="gender" value="female" > Female<br>
+				<input type="radio" name="role" value="client" > Otsin fotograafi<br>
 			 <?php } ?>
 			<br>
 	
-			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Create your account">
-			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Create your account">
+			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Loo kasutaja">
+			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Loo kasutaja">
 			
 		</form>
-
-		<!--Töökindla tellimusvormi loomine.-->
 		
 	</body>
 			</div>
