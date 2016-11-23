@@ -1,16 +1,20 @@
 <?php
 
-	require("/home/heinparn/config.php");
-
-	/* ALUSTAN SESSIOONI */
-	session_start();
-		
-	/* ÜHENDUS */
-	$database = "if16_heinop2rn_1";
+	//functions.php
+	require("/home/sirjlehe/public_html/config.php");
+	
+	$database = "if16_sirjemaria";
 	$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
 	
-	/* KLASSID */
+	//alustan sessiooni, et saaks kasutada
+	//$_SESSION muutujaid
+	session_start();
 	
-
-
-?> 
+	//********************
+	//*******SIGNUP*******
+	//********************
+		
+	
+	
+	
+?>

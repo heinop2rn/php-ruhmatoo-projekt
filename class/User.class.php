@@ -1,90 +1,102 @@
-<?php 
+<?php
 class User {
 	
+	//klassi sees saab kasutada
 	private $connection;
 	
-	function __construct($mysqli){
+	
+	// $User= new User(see); jıuab siia sulgude vahele
+	function __construct ($mysqli) {
 		
-		//this viitab klassile (this == User)
+		//klassi sees muutuja kasutamiseks $this->
 		$this->connection = $mysqli;
+		
 		
 	}
 	
-	/*TEISED FUNKTSIOONID*/
+	/* TEISED FUNKTSIOONID  */
 	
-	function login ($email, $password) {
+	function login ($email, $password){
 		
 		$error = "";
 		
-		$stmt = $this->connection->prepare("
-		SELECT id, email, password, created 
-		FROM user_sample
-		WHERE email = ?");
-	
+		$this->connection = new $this->connection($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
+		
+			$stmt = $this->connection->prepare("
+			SELECT id, email, password, created
+			FROM user_sample
+			WHERE email = ?");
+			
 		echo $this->connection->error;
 		
 		//asendan k¸sim‰rgi
 		$stmt->bind_param("s", $email);
 		
-		//m‰‰ran v‰‰rtused muutujatesse
+		//m‰‰ran tulpadele muutujad
 		$stmt->bind_result($id, $emailFromDb, $passwordFromDb, $created);
 		$stmt->execute();
 		
-		//andmed tulid andmebaasist vıi mitte
-		// on tıene kui on v‰hemalt ¸ks vaste
+		//k¸sin rea andmeid
 		if($stmt->fetch()){
-			
-			//oli sellise meiliga kasutaja
-			//password millega kasutaja tahab sisse logida
-			$hash = hash("sha512", $password);
-			if ($hash == $passwordFromDb) {
+				//oli rida
 				
-				echo "Kasutaja logis sisse ".$id;
-				
-				//m‰‰ran sessiooni muutujad, millele saan ligi
-				// teistelt lehtedelt
-				$_SESSION["userId"] = $id;
-				$_SESSION["userEmail"] = $emailFromDb;
-				
-				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
-				
-				header("Location: data.php");
-				exit();
-				
-			}else {
-				$error = "vale parool";
-			}
-			
-			
+				//vırdlen paroole
+				$hash = hash("sha512", $password);
+				if($hash == $passwordFromDb){
+					
+					echo "User logged in ".$id;
+					
+					$_SESSION["userId"] = $id;
+					$_SESSION["userEmail"] = $emailFromDb;
+					
+					$_SESSION["message"] = "<h1>Welcome!</h1>";
+					
+					//suunaks uuele lehele
+					header("Location: data.php");
+					
+				} else {
+					$error = "Wrong password!";
+				}
+						
 		} else {
+			//ei olnud
 			
-			// ei leidnud kasutajat selle meiliga
-			$error = "ei ole sellist emaili";
-		}
+			$error = "Wrong email!";
+			
+			
+		}		
 		
 		return $error;
-		
-	}
 	
-	function signUp ($email, $password) {
+	}	
+	
+	function signUp ($email, $password, $name){
+		
+		
+		$this->connection = new $this->connection($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 		
 		$stmt = $this->connection->prepare("INSERT INTO user_sample (email, password) VALUES (?, ?)");
-	
 		echo $this->connection->error;
 		
 		$stmt->bind_param("ss", $email, $password);
 		
-		if($stmt->execute()) {
-			echo "salvestamine ınnestus";
-		} else {
-		 	echo "ERROR ".$stmt->error;
-		}
-		
+		if ($stmt->execute()) {
+			echo "Saved!";
+	   } else {
+		   echo "ERROR ".$stmt->error;
+	   }
+	   
 		$stmt->close();
+		$this->connection->close();
+	   
 		
-		
-	}
+	}	
 	
+	
+	
+}
 
-} 
+
+
+
 ?>

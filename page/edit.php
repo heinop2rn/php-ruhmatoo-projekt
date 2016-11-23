@@ -2,52 +2,36 @@
 	//edit.php
 	require("../functions.php");
 	
-	require("../class/Car.class.php");
+	require("../class/editFunctions.php");
+	
+	require("../class/Car.Class.php");
 	$Car = new Car($mysqli);
-	require("../class/Helper.class.php");
-	$Helper = new Helper();
 	
+	require("../class/Helper.Class.php");
+	$Helper = new Helper($mysqli);
 	
-	//var_dump($_POST);
+	if(isset($_GET["delete"])&&isset($_GET["id"])) {
+		deleteCar($Helper->cleanInput($_GET["id"]));
+		header("Location: data.php");
+		exit();
+	}
 	
 	//kas kasutaja uuendab andmeid
 	if(isset($_POST["update"])){
 		
-		$Car->update($Helper->cleanInput($_POST["id"]), $Helper->cleanInput($_POST["plate"]), $Helper->cleanInput($_POST["color"]));
+		updateCar($Helper->cleanInput($_POST["id"]),$Helper->cleanInput ($_POST["plate"]),$Helper->cleanInput($_POST["color"]));
 		
 		header("Location: edit.php?id=".$_POST["id"]."&success=true");
         exit();	
 		
 	}
 	
-	//kustutan
-	if(isset($_GET["delete"])){
-		
-		$Car->delete($_GET["id"]);
-		
-		header("Location: data.php");
-		exit();
-	}
-	
-	
-	
-	// kui ei ole id'd aadressireal siis suunan
-	if(!isset($_GET["id"])){
-		header("Location: data.php");
-		exit();
-	}
-	
 	//saadan kaasa id
-	$c = $Car->getSingle($_GET["id"]);
-	//var_dump($c);
-	
-	if(isset($_GET["success"])){
-		echo "salvestamine õnnestus";
-	}
-
+	$c = getSingleCarData($_GET["id"]);
+	var_dump($c);
 	
 ?>
-<?php require("../header.php"); ?>
+<?php require("../partials/header.php");?>
 <br><br>
 <a href="data.php"> tagasi </a>
 
@@ -62,10 +46,8 @@
 	<input type="submit" name="update" value="Salvesta">
   </form>
   
+  <br>
+  <br>
   
- <br>
- <br>
- <br>
- <a href="?id=<?=$_GET["id"];?>&delete=true">kustuta</a>
- 
- <?php require("../footer.php"); ?>
+  <a href="?id=<?=$_GET["id"];?>&delete=true">Kustuta</a>
+  <?php require("../partials/footer.php");?>
