@@ -1,24 +1,26 @@
-<?php 
-	
+<?php
+
 	require("../functions.php");
 	
-	require("../class/Car.class.php");
+	require("../class/Car.Class.php");
 	$Car = new Car($mysqli);
-	require("../class/Helper.class.php");
-	$Helper = new Helper();
 	
+	require("../class/Helper.Class.php");
+	$Helper = new Helper($mysqli);
 	
-	//kui ei ole kasutaja id'd
-	if (!isset($_SESSION["userId"])){
+	require("../class/Order.Class.php");
+	$Order = new Order($mysqli);
+	
+	//Kas on sisse loginud, kui ei ole siis
+	//suunata login lehele
+	if (!isset($_SESSION["userId"])) {
 		
-		//suunan sisselogimise lehele
 		header("Location: login.php");
 		exit();
 	}
-	
-	
-	//kui on ?logout aadressireal siis login välja
-	if (isset($_GET["logout"])) {
+
+	//kas ?logout on aadressireal
+	if (isset($_GET["logout"])){
 		
 		session_destroy();
 		header("Location: login.php");
@@ -33,14 +35,13 @@
 		unset($_SESSION["message"]);
 	}
 	
-	
 	if ( isset($_POST["plate"]) && 
 		isset($_POST["plate"]) && 
 		!empty($_POST["color"]) && 
 		!empty($_POST["color"])
 	  ) {
 		  
-		$Car->save($Helper->cleanInput($_POST["plate"]), $Helper->cleanInput($_POST["color"]));
+		$Car->saveCar($Helper->cleanInput($_POST["plate"]), $Helper->cleanInput($_POST["color"]));
 		
 	}
 	
@@ -48,44 +49,113 @@
 	
 	//kas otsib
 	if(isset($_GET["q"])){
-		
-		// kui otsib, võtame otsisõna aadressirealt
+		//kui otsib, võtame otsisõna aadressirealt
 		$q = $_GET["q"];
 		
 	}else{
-		
-		// otsisõna tühi
+		//otsisõna on tühi
 		$q = "";
+		
 	}
 	
 	$sort = "id";
-	$order = "ASC";
+	$orderA = "ASC";
 	
-	if(isset($_GET["sort"]) && isset($_GET["order"])) {
+	if(isset($_GET["sort"])  && isset($_GET["orderA"])){
 		$sort = $_GET["sort"];
-		$order = $_GET["order"];
+		$orderA = $_GET["orderA"];
 		
 	}
 	
 	//otsisõna fn sisse
-	$carData = $Car->get($q, $sort, $order);
-	
-	
-	
-	
+	$carData = $Car->getAllCars($q, $sort, $orderA);
 	//echo "<pre>";
 	//var_dump($carData);
 	//echo "</pre>";
+	
+	if(isset($_POST["product"]) &&
+ 			isset($_POST["quantity"]) &&
+ 			!empty($_POST["product"]) &&
+ 			!empty($_POST["quantity"])
+  		) {
+			
+			saveOrder($_POST["product"], $_POST["quantity"]);
+	}
+	
+	$people = $Order->AllOrders();
+	
+	//echo "<pre>";
+	//var_dump($people);
+	//cho "</pre>";
+	
 ?>
-<?php require("../header.php"); ?>
-<h1>Data</h1>
-<?=$msg;?>
+<?php require("../partials/header.php");?>
+<h1>Place an order!</h1>
 <p>
-	Tere tulemast <a href="user.php"><?=$_SESSION["userEmail"];?>!</a>
-	<a href="?logout=1">Logi välja</a>
+
+	Welcome! <a href="user.php"><?=$_SESSION["userEmail"];?> -</a>
+	<a href="?logout=1">Log out</a>
+
 </p>
 
+<form method="POST">
 
+		<label>Product</label>
+		<br>
+		<input name="product" type="text">
+		<br>
+		<br>
+		<label>Quantity</label>
+		<br>
+		<input name="quantity" type="text">
+		<br>
+		<br>
+		
+		<input type="submit" value="Add to cart">
+		
+
+			
+</form>
+
+<h2>Ordered products:</h2>
+<?php
+
+	$html = "<table>";
+	
+			$html .="<tr>";
+				$html .= "<th>id</th>";
+				$html .= "<th>product</th>";
+				$html .= "<th>quantity</th>";
+				$html .= "<th>created</th>";
+				
+			$html .="</tr>";
+	
+		foreach($people as $p) {
+			$html .="<tr>";
+				$html .= "<td>".$p->id."</td>";
+				$html .= "<td>".$p->product."</td>";
+				$html .= "<td>".$p->quantity."</td>";
+				$html .= "<td>".$p->created."</td>";
+			$html .="</tr>";
+		}
+		
+$html .= "</table>";
+	
+	echo $html;
+	
+	
+	$listHtml = "<br><br>";
+	
+	foreach($people as $p){
+		
+		
+		$html .= "<h1>".$p->product."</h1>";
+		$html .= "<td>".$p->quantity."</td>";
+		$html .= "<td>".$p->created."</td>";
+	}
+	
+	echo $listHtml;
+?>
 <h2>Salvesta auto</h2>
 <form method="POST">
 	
@@ -105,59 +175,50 @@
 <h2>Autod</h2>
 
 <form>
-	
+
 	<input type="search" name="q" value="<?=$q;?>">
 	<input type="submit" value="Otsi">
 
 </form>
-
 <?php 
 	
 	$html = "<table class='table table-striped'>";
-	
+		
 	$html .= "<tr>";
 	
-		$idOrder = "ASC";
+		$idOrder =  "ASC";
 		$arrow = "&darr;";
-		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
-			$idOrder = "DESC";
+		if(isset($_GET["orderA"]) && $_GET["orderA"] == "ASC"){
+			$idOrder =  "DESC";
 			$arrow = "&uarr;";
 		}
-		
-		$plateOrder = "ASC";
-		
-		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
-			$plateOrder = "DESC";
-			
-		}
-		
-		$colorOrder = "ASC";
-		
-		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
-			$colorOrder = "DESC";
-			
-		}
-		
 		$html .= "<th>
-					<a href='?q=".$q."&sort=id&order=".$idOrder."'>
+					<a href='?q=".$q."&sort=id&orderA=".$idOrder."'>
 						id ".$arrow."
 					</a>
-				 </th>";
-				 
+				</th>";
+		$plateOrder =  "ASC";
+		$arrow = "&darr;";
+		if(isset($_GET["orderA"]) && $_GET["orderA"] == "ASC"){
+			$plateOrder =  "DESC";
+			$arrow = "&uarr;";
+		}
 		$html .= "<th>
-					<a href='?q=".$q."&sort=plate&order=".$plateOrder."'>
-						
+					<a href='?q=".$q."&sort=plate&orderA=".$plateOrder."'>
 						plate ".$arrow."
 					</a>
-				 </th>";
-				 
+				</th>";
+		$colorOrder =  "ASC";
+		$arrow = "&darr;";
+		if(isset($_GET["orderA"]) && $_GET["orderA"] == "ASC"){
+			$colorOrder =  "DESC";
+			$arrow = "&uarr;";
+		}
 		$html .= "<th>
-					<a href='?q=".$q."&sort=color&order=".$colorOrder."'>
+					<a href='?q=".$q."&sort=color&orderA=".$colorOrder."'>
 						color ".$arrow."
 					</a>
-				 </th>";
-				 
-				 
+				</th>";
 	$html .= "</tr>";
 	
 	//iga liikme kohta massiivis
@@ -169,8 +230,7 @@
 			$html .= "<td>".$c->id."</td>";
 			$html .= "<td>".$c->plate."</td>";
 			$html .= "<td style='background-color:".$c->carColor."'>".$c->carColor."</td>";
-			$html .= "<td><a  class='btn btn-default btn-sm' href='edit.php?id=".$c->id."'><span class='glyphicon glyphicon-pencil'></span> Muuda</a></td>";
-			
+            $html .= "<td><a class='btn btn-default btn-sm' href='edit.php?id=".$c->id."'><span class='glyphicon glyphicon-pencil'></span> Muuda</a></td>";
 		$html .= "</tr>";
 	}
 	
@@ -189,16 +249,6 @@
 	}
 	
 	echo $listHtml;
-	
-	
-	
 
 ?>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<?php require("../footer.php"); ?>
-
+<?php require("../partials/footer.php");?>
