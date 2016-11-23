@@ -206,15 +206,15 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		
 			
 			 <?php if($role == "photographer") { ?>
-				<input type="radio" name="role" value="photographer" checked> Olen fotograaf<br> 
+				<input type="radio" name="role" value="photographer" checked>  Olen fotograaf<br> 
 			 <?php } else { ?>
-				<input type="radio" name="role" value="photographer" > Olen fotograaf<br>
+				<input type="radio" name="role" value="photographer" >  Olen fotograaf<br>
 			 <?php } ?>
 			 
 			 <?php if($role == "client") { ?>
-				<input type="radio" name="role" value="client" checked> Otsin fotograafi<br>
+				<input type="radio" name="role" value="client" checked>  Otsin fotograafi<br>
 			 <?php } else { ?>
-				<input type="radio" name="role" value="client" > Otsin fotograafi<br>
+				<input type="radio" name="role" value="client" >  Otsin fotograafi<br>
 			 <?php } ?>
 			<br>
 	
