@@ -27,7 +27,8 @@
         * v0.4 Teiste fotograafide vaatamine+hindamine
 		* v0.5 Lehe külalisele fotograafide nimekiri+portfoolio+info
 		* v0.6 
-	*LEHED: *Login/Register
+	*LEHED: 
+			*Login/Register
 			*Portfoolio loomine
 			*Portfoolio täiendamine
 			*Kasutaja profiil/portfoolio
