@@ -26,36 +26,52 @@
 	$signupEmail = "";
 	$name = "";
 	$nameError = "";
-	$loginEmailError = "";
-	$loginEmail = "";
+	$loginUsername = "";
+	$loginUsernameError = "";
 	$loginPasswordError = "";
 	$loginError = "";
 	$Saved_Email = "";
 	$gender = "male";
 	
-$loginEmailAnswer = (isset($_POST['loginEmail'])) ? $_POST['loginEmail'] : '';
+$loginUsernameAnswer = (isset($_POST['loginUsername'])) ? $_POST['loginUsername'] : '';
+$signupUsernameAnswer = (isset($_POST['signupUsername'])) ? $_POST['signupUsername'] : '';
 $signupEmailAnswer = (isset($_POST['signupEmail'])) ? $_POST['signupEmail'] : '';
 $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 	
-	if(isset($_POST["loginEmail"])){
-		if(empty($_POST["loginEmail"])){
-			$loginEmailError="<i>Please write your email!</i>";
+	if(isset($_POST["loginUsername"])){
+		if(empty($_POST["loginUsername"])){
+			$loginUsernameError="<i>Palun sisesta kasutajanimi!</i>";
 		}
 	}
 	
 	if(isset($_POST["loginPassword"])){
 		if(empty($_POST["loginPassword"])){
-			$loginPasswordError="<i>Please write your password!</i>";
+			$loginPasswordError="<i>Palun sisesta parool!</i>";
 		}
 	}
 	
 	
 	// kas e/post oli olemas
+	if ( isset ( $_POST["signupUsername"] ) ) {
+		
+		if ( empty ( $_POST["signupUsername"] ) ) {
+			
+			// oli kasutajanimi, kuid see oli tühi
+			$signupEmailError = "<i>Palun sisesta enda kasutajanimi!</i>";
+			
+		} else {
+			
+			// email on ?µige, salvestan v?¤?¤rtuse muutujasse
+			$signupEmail = $_POST["signupUsername"];
+			
+		}
+		
+	}
 	if ( isset ( $_POST["signupEmail"] ) ) {
 		
 		if ( empty ( $_POST["signupEmail"] ) ) {
 			
-			// oli email, kuid see oli t?¼hi
+			// oli email, kuid see oli tühi
 			$signupEmailError = "<i>Please write your email!</i>";
 			
 		} else {
@@ -72,7 +88,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		if ( empty ( $_POST["signupPassword"] ) ) {
 			
 			// oli password, kuid see oli t?¼hi
-			$signupPasswordError = "<i>Please write your password!</i>";
+			$signupPasswordError = "<i>Palun sisesta parool!</i>";
 			
 		} else {
 			
@@ -81,7 +97,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 			
 			if ( strlen($_POST["signupPassword"]) < 8 ) {
 				
-				$signupPasswordError = "<i>Minimum length - 8 characters!</i>";
+				$signupPasswordError = "<i>Minimaalne parooli pikkus - 8 tähemärki!</i>";
 				
 				
 			}
@@ -102,11 +118,11 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 	
 	
 	
-	if ( isset ( $_POST["gender"] ) ) {
-		if ( empty ( $_POST["gender"] ) ) {
-			$genderError = "<i>Please add your gender!</i>";
+	if ( isset ( $_POST["role"] ) ) {
+		if ( empty ( $_POST["role"] ) ) {
+			$roleError = "<i>Palun vali kas oled fotograaf või klient!</i>";
 		} else {
-			$gender = $_POST["gender"];
+			$role = $_POST["role];
 		}
 	}
 	

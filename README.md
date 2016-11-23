@@ -19,6 +19,8 @@
 	kirjeldada vähemalt	2-3 sarnast rakendust mida eeskujuks võtta);
 	* https://www.bloglovin.com/
 	* https://www.ppa.com/clientapps/seethedifference/
+	* http://www.cssdesignawards.com/wotd-award-winners
+	* http://www.awwwards.com/awards-of-the-day/
 	
     * funktsionaalsuse loetelu prioriteedi järjekorras, nt
         * v0.1 Saab teha kasutaja ja sisselogida
