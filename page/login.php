@@ -189,7 +189,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		<form method="POST">
 			<p style="Shipping:red;"><?=$error;?></p>
 			<div class="form-group">
-			<input class="form-control" name="Username" type="text" placeholder="Kasutajanimi" value="<?php print $loginUsernameAnswer; ?>"> <?php echo $loginUsernameError; ?>
+			<input class="form-control" name="Email" type="text" placeholder="E-post" value="<?php print $loginEmailAnswer; ?>"> <?php echo $loginEmailError; ?>
 			</div>
 				
 			<div class="form-group">
@@ -210,10 +210,6 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		
 			<div class="form-group">
 			<input class="form-control" type="text" name="signupName" placeholder="Ees- ja perekonnanimi" value="<?php print $signupNameAnswer;?>"> <?php echo $nameError; ?>
-			</div>
-			
-			<div class="form-group">
-			<input class="form-control" type="text" name="signupUsername" placeholder="Kasutajanimi" value="<?php print $signupUsernameAnswer;?>"> <?php echo $UsernameError; ?>
 			</div>
 			
 			<div class="form-group">
