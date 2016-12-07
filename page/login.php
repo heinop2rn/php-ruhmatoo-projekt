@@ -126,11 +126,11 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 	
 	
 	
-	if ( isset ( $_POST["role"] ) ) {
-		if ( empty ( $_POST["role"] ) ) {
+	if ( isset ( $_POST["staatus"] ) ) {
+		if ( empty ( $_POST["staatus"] ) ) {
 			$roleError = "<i>Palun vali kas oled fotograaf või klient!</i>";
 		} else {
-			$role = $_POST["role"];
+			$staatus = $_POST["staatus"];
 		}
 	}
 	
@@ -233,7 +233,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 				<input type="radio" name="staatus" value="photographer" >  Olen fotograaf<br>
 			 <?php } ?>
 			 
-			 <?php if($role == "client") { ?>
+			 <?php if($staatus == "client") { ?>
 				<input type="radio" name="staatus" value="client" checked>  Otsin fotograafi<br>
 			 <?php } else { ?>
 				<input type="radio" name="staatus" value="client" >  Otsin fotograafi<br>
