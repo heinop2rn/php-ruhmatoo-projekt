@@ -90,7 +90,7 @@
 	
 ?>
 <?php require("../partials/header.php");?>
-<h1>Place an order!</h1>
+
 <p>
 
 	Welcome! <a href="user.php"><?=$_SESSION["userEmail"];?> -</a>
@@ -98,84 +98,12 @@
 
 </p>
 
-<form method="POST">
 
-		<label>Product</label>
-		<br>
-		<input name="product" type="text">
-		<br>
-		<br>
-		<label>Quantity</label>
-		<br>
-		<input name="quantity" type="text">
-		<br>
-		<br>
-		
-		<input type="submit" value="Add to cart">
-		
-
-			
-</form>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
-</form>
-
-<h2>Ordered products:</h2>
-<?php
-
-	$html = "<table>";
-	
-			$html .="<tr>";
-				$html .= "<th>id</th>";
-				$html .= "<th>product</th>";
-				$html .= "<th>quantity</th>";
-				$html .= "<th>created</th>";
-				
-			$html .="</tr>";
-	
-		foreach($people as $p) {
-			$html .="<tr>";
-				$html .= "<td>".$p->id."</td>";
-				$html .= "<td>".$p->product."</td>";
-				$html .= "<td>".$p->quantity."</td>";
-				$html .= "<td>".$p->created."</td>";
-			$html .="</tr>";
-		}
-		
-$html .= "</table>";
-	
-	echo $html;
-	
-	
-	$listHtml = "<br><br>";
-	
-	foreach($people as $p){
-		
-		
-		$html .= "<h1>".$p->product."</h1>";
-		$html .= "<td>".$p->quantity."</td>";
-		$html .= "<td>".$p->created."</td>";
-	}
-	
-	echo $listHtml;
-?>
-<h2>Salvesta auto</h2>
-<form method="POST">
-	
-	<label>Auto nr</label><br>
-	<input name="plate" type="text">
-	<br><br>
-	
-	<label>Auto värv</label><br>
-	<input type="color" name="color" >
-	<br><br>
-	
-	<input type="submit" value="Salvesta">
-	
-	
 </form>
 
 <h2>Autod</h2>
@@ -244,17 +172,7 @@ $html .= "</table>";
 	
 	echo $html;
 	
-	
-	$listHtml = "<br><br>";
-	
-	foreach($carData as $c){
-		
-		
-		$listHtml .= "<h1 style='color:".$c->carColor."'>".$c->plate."</h1>";
-		$listHtml .= "<p>color = ".$c->carColor."</p>";
-	}
-	
-	echo $listHtml;
+
 
 ?>
 <?php require("../partials/footer.php");?>
