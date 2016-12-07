@@ -23,6 +23,7 @@
 // MUUTUJAD
 	$signupEmailError = "";
 	$signupPasswordError = "";
+	$signupPassword = "";
 	$signupEmail = "";
 	$name = "";
 	$nameError = "";
@@ -31,6 +32,9 @@
 	$loginPasswordError = "";
 	$loginError = "";
 	$Saved_Email = "";
+	$loginEmail = "";
+	$loginEmailAnswer = "";
+	$loginEmailError = "";
 	$gender = "male";
 	
 $loginUsernameAnswer = (isset($_POST['loginUsername'])) ? $_POST['loginUsername'] : '';
@@ -122,12 +126,12 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		if ( empty ( $_POST["role"] ) ) {
 			$roleError = "<i>Palun vali kas oled fotograaf või klient!</i>";
 		} else {
-			$role = $_POST["role];
+			$role = $_POST["role"];
 		}
 	}
 	
 	
-	// Kus tean et ?¼htegi viga ei olnud ja saan kasutaja andmed salvestada
+	//Kus tean et ?¼htegi viga ei olnud ja saan kasutaja andmed salvestada
 	if ( isset($_POST["signupPassword"]) &&
 		 isset($_POST["signupEmail"]) &&	
 		 isset($_POST["signupName"]) &&
