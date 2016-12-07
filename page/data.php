@@ -15,8 +15,8 @@
 	//suunata login lehele
 	if (!isset($_SESSION["userId"])) {
 		
-		header("Location: login.php");
-		exit();
+		//header("Location: login.php");
+		//exit();
 	}
 
 	//kas ?logout on aadressireal
