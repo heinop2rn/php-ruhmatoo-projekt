@@ -36,15 +36,19 @@
 	$loginEmailAnswer = "";
 	$loginEmailError = "";
 	$gender = "male";
+	$UsernameError = "";
+	$staatus = "";
+	$signupEmailAnswer = "";
+	$signupName = "";
 	
 $loginUsernameAnswer = (isset($_POST['loginUsername'])) ? $_POST['loginUsername'] : '';
 $signupUsernameAnswer = (isset($_POST['signupUsername'])) ? $_POST['signupUsername'] : '';
 $signupEmailAnswer = (isset($_POST['signupEmail'])) ? $_POST['signupEmail'] : '';
 $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 	
-	if(isset($_POST["loginUsername"])){
-		if(empty($_POST["loginUsername"])){
-			$loginUsernameError="<i>Palun sisesta kasutajanimi!</i>";
+	if(isset($_POST["loginEmail"])){
+		if(empty($_POST["loginEmail"])){
+			$loginEmailError="<i>Palun sisesta kasutajanimi!</i>";
 		}
 	}
 	
@@ -56,9 +60,9 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 	
 	
 	// kas e/post oli olemas
-	if ( isset ( $_POST["signupUsername"] ) ) {
+	if ( isset ( $_POST["signupEmail"] ) ) {
 		
-		if ( empty ( $_POST["signupUsername"] ) ) {
+		if ( empty ( $_POST["signupEmail"] ) ) {
 			
 			// oli kasutajanimi, kuid see oli tühi
 			$signupEmailError = "<i>Palun sisesta enda kasutajanimi!</i>";
@@ -66,7 +70,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		} else {
 			
 			// email on ?µige, salvestan v?¤?¤rtuse muutujasse
-			$signupEmail = $_POST["signupUsername"];
+			$signupEmail = $_POST["signupEmail"];
 			
 		}
 		
@@ -147,17 +151,19 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		echo " ";
 		
 		$password = hash("sha512", $_POST["signupPassword"]);
-		$signupName=($_POST['signupName']);
+		$signupName=($_POST["signupName"]);
 		
 		#echo "parool ".$_POST["signupPassword"]."<br>";
 		#echo "r?¤si ".$password."<br>";
 		
 		
 	
-		$signupEmail = cleanInput($signupEmail);
-		$password = cleanInput($password);
+		$signupEmail = ($Helper->cleanInput($signupEmail));
+		$password = $Helper->cleanInput($password);
+		$signupName = ($Helper->cleanInput($signupName));
+		$staatus = $Helper->cleanInput($staatus);
 		
-		signup($signupEmail, $password, $signupName);
+		$User->signup($password, $signupName, $signupEmail, $staatus);
 	   
 	}
 	
@@ -183,7 +189,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		<div class="row">
 			
 			<div class="col-sm-4 col-md-3">
-			<h1>Logi sisse</h1>
+			<h1>Log in</h1>
 
 		
 		<form method="POST">
@@ -197,27 +203,27 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 			</div>
 			
 		
-			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Logi sisse">
-			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Logi sisse">
+			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Log in 1">
+			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Log in 2">
 			
 		</form>
 			</div>
 			
 			<div class="col-sm-4 col-md-3 col-sm-offset-4 col-md-offset-3">
-			<h1>Loo uus kasutaja</h1>
+			<h1>Create a new account</h1>
 		
 		<form method="POST">
-		
-			<div class="form-group">
-			<input class="form-control" type="text" name="signupName" placeholder="Ees- ja perekonnanimi" value="<?php print $signupNameAnswer;?>"> <?php echo $nameError; ?>
-			</div>
 			
+			<div class="form-group">
+			<input class="form-control" name="signupEmail" type="email" placeholder="Email" value="<?php print $signupEmailAnswer;?>"> <?php echo $signupEmailError; ?>
+			</div>
+		
 			<div class="form-group">
 			<input class="form-control" name="signupPassword" type="password" placeholder="Password"> <?php echo $signupPasswordError; ?>
 			</div>
-			
+		
 			<div class="form-group">
-			<input class="form-control" name="signupEmail" type="email" placeholder="E-Post" value="<?php print $signupEmailAnswer;?>"> <?php echo $signupEmailError; ?>
+			<input class="form-control" type="text" name="signupName" placeholder="Full name" value="<?php print $signupNameAnswer;?>"> <?php echo $nameError; ?>
 			</div>
 		
 			
@@ -234,10 +240,12 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 			 <?php } ?>
 			<br>
 	
-			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Loo kasutaja">
-			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Loo kasutaja">
+			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Create your account">
+			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Create your account">
 			
 		</form>
+
+		<!--Töökindla tellimusvormi loomine.-->
 		
 	</body>
 			</div>
