@@ -24,7 +24,7 @@ class User {
 		
 			$stmt = $this->connection->prepare("
 			SELECT id, email, password, created
-			FROM user_sample
+			FROM users
 			WHERE email = ?");
 			
 		echo $this->connection->error;
@@ -70,15 +70,15 @@ class User {
 	
 	}	
 	
-	function signUp ($email, $password, $name){
+	function signUp ($password, $signupName, $signupEmail, $staatus){
 		
 		
 		$this->connection = new $this->connection($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 		
-		$stmt = $this->connection->prepare("INSERT INTO user_sample (email, password) VALUES (?, ?)");
+		$stmt = $this->connection->prepare("INSERT INTO users (parool, nimi, epost, staatus) VALUES (?, ?, ?, ?)");
 		echo $this->connection->error;
 		
-		$stmt->bind_param("ss", $email, $password);
+		$stmt->bind_param("ssss", $password, $signupName, $signupEmail, $staatus);
 		
 		if ($stmt->execute()) {
 			echo "Saved!";
