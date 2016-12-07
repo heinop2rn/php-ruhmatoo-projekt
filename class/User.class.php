@@ -23,9 +23,9 @@ class User {
 		$this->connection = new $this->connection($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
 		
 			$stmt = $this->connection->prepare("
-			SELECT id, email, password, created
+			SELECT id, parool, nimi, epost, staatus
 			FROM users
-			WHERE email = ?");
+			WHERE epost = ?");
 			
 		echo $this->connection->error;
 		
@@ -33,7 +33,7 @@ class User {
 		$stmt->bind_param("s", $email);
 		
 		//määran tulpadele muutujad
-		$stmt->bind_result($id, $emailFromDb, $passwordFromDb, $created);
+		$stmt->bind_result($id, $passwordFromDb, $name, $emailFromDb, $staatus);
 		$stmt->execute();
 		
 		//küsin rea andmeid

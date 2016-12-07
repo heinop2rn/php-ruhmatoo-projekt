@@ -195,7 +195,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 		<form method="POST">
 			<p style="Shipping:red;"><?=$error;?></p>
 			<div class="form-group">
-			<input class="form-control" name="Email" type="text" placeholder="E-post" value="<?php print $loginEmailAnswer; ?>"> <?php echo $loginEmailError; ?>
+			<input class="form-control" name="loginEmail" type="text" placeholder="E-post" value="<?php print $loginEmailAnswer; ?>"> <?php echo $loginEmailError; ?>
 			</div>
 				
 			<div class="form-group">
