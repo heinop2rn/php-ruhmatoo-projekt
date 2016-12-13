@@ -14,6 +14,8 @@
 	require("../class/Order.Class.php");
 	$Order = new Order($mysqli);
 	
+	$PictureError = "";
+	
 	//Kas on sisse loginud, kui ei ole siis
 	//suunata login lehele
 	if (!isset($_SESSION["userId"])) {
@@ -39,28 +41,34 @@
 	}
 	
 	
-	if(isset($_POST["insert"]))  
- {  
-    $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));  
-    $query = "INSERT INTO tbl_images(name) VALUES ('$file')";  
-    if(mysqli_query($connect, $query))  
-      {  
-		echo '<script>alert("Image Inserted into Database")</script>';  
-      }  
- }  
+	if(isset($_POST["insert"]))  {
+		if ( empty ( $_POST["insert"] ) ) {
+			
+
+			$PictureError = "<i>Pilti ei sisestatud!</i>";
+			
+		} else {
+		
+			$connect = $_POST["insert"];
+			
+		}
+	}
+	
+	
+		
  
     $query = "SELECT * FROM images ORDER BY id DESC";  
-    $result = mysqli_query($connect, $query);  
-        while($row = mysqli_fetch_array($result))  
-                {  
-                     echo '  
-                          <tr>  
-                               <td>  
-                                    <img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" height="200" width="200" class="img-thumnail" />  
-                               </td>  
-                          </tr>  
-                     ';  
-                }    
+    $result = mysqli_query($query, $connect);  
+    while($row = mysqli_fetch_array($result))  
+    {  
+		echo '  
+			<tr>  
+				<td>  
+					<img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" height="200" width="200" class="img-thumnail" />  
+				</td>  
+			</tr>  
+		';  
+	}    
 	
 	
 ?>
