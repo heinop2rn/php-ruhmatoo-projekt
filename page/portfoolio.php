@@ -5,6 +5,9 @@
 	require("../class/Car.Class.php");
 	$Car = new Car($mysqli);
 	
+	require("../class/Portfoolio.class.php");
+	$Portfoolio = new Portfoolio($mysqli);
+	
 	require("../class/Helper.Class.php");
 	$Helper = new Helper($mysqli);
 	
@@ -36,24 +39,108 @@
 	}
 	
 	
+	if(isset($_POST["insert"]))  
+ {  
+    $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));  
+    $query = "INSERT INTO tbl_images(name) VALUES ('$file')";  
+    if(mysqli_query($connect, $query))  
+      {  
+		echo '<script>alert("Image Inserted into Database")</script>';  
+      }  
+ }  
+ 
+    $query = "SELECT * FROM images ORDER BY id DESC";  
+    $result = mysqli_query($connect, $query);  
+        while($row = mysqli_fetch_array($result))  
+                {  
+                     echo '  
+                          <tr>  
+                               <td>  
+                                    <img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" height="200" width="200" class="img-thumnail" />  
+                               </td>  
+                          </tr>  
+                     ';  
+                }    
+	
 	
 ?>
 <?php require("../partials/header.php");?>
 
 <p>
 
-	Tere! <a href="user.php"><?=$_SESSION["userEmail"];?> -</a>
+	Loo portfoolio! <a href="user.php"><?=$_SESSION["userEmail"];?> -</a>
 	<a href="?logout=1">Logi välja</a>
 
 </p>
 
-
-
-<form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
+<div class="container">
+		<div class="row">
+			<div class="col-sm-4 col-md-3 col-sm-offset-4 col-md-offset-3">
+			<form method="POST">
+			<br><br>
+			<div class="form-group">
+				<input class="form-control" type="text" name="Fbaddress" placeholder="Facebooki leht">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="Blogaddress" placeholder="Blogi">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="Portfoolioaddress" placeholder="Portfoolio link">
+			
+			<br>
+			<form action="demo_form.asp" id="usrform">
+			<textarea name="comment" form="usrform" rows="5" cols="35">Kirjelda ennast...</textarea>
+			</div>
+			
+		</div>
+	</div>
+	</div>
+</body>
+</html>
 </form>
+</form>
+ <!DOCTYPE html>  
+ <html>  
+      <body>  
+           <br /><br />  
+           <div class="container" style="width:500px;">   
+                <form method="post" enctype="multipart/form-data">  
+                     <input type="file" name="image" id="image" />  
+                     <br />  
+                     <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />  
+                </form>  
+                <br />  
+                <br />  
+                <table class="table table-bordered">  
+                     <tr>  
+                          <th>Image</th>  
+                     </tr>  
+                </table>  
+           </div>  
+      </body>  
+ </html>  
+ <script>  
+ $(document).ready(function(){  
+      $('#insert').click(function(){  
+           var image_name = $('#image').val();  
+           if(image_name == '')  
+           {  
+                alert("Please Select Image");  
+                return false;  
+           }  
+           else  
+           {  
+                var extension = $('#image').val().split('.').pop().toLowerCase();  
+                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)  
+                {  
+                     alert('Invalid Image File');  
+                     $('#image').val('');  
+                     return false;  
+                }  
+           }  
+      });  
+ });  
+ </script> 
 
 <h2>Profiil</h2>
 
