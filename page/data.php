@@ -9,8 +9,8 @@
 	//suunata login lehele
 	if (!isset($_SESSION["userId"])) {
 		
-		//header("Location: login.php");
-		//exit();
+		header("Location: login.php");
+		exit();
 	}
 
 	//kas ?logout on aadressireal
@@ -62,21 +62,21 @@
 	}
 	
 	//otsisõna fn sisse
-	$carData = $Car->getAllCars($q, $sort, $orderA);
+	//$carData = $Car->getAllCars($q, $sort, $orderA);
 	//echo "<pre>";
 	//var_dump($carData);
 	//echo "</pre>";
 	
-	if(isset($_POST["product"]) &&
- 			isset($_POST["quantity"]) &&
- 			!empty($_POST["product"]) &&
- 			!empty($_POST["quantity"])
-  		) {
+	//if(isset($_POST["product"]) &&
+ //			isset($_POST["quantity"]) &&
+ 	//		!empty($_POST["product"]) &&
+ 	//		!empty($_POST["quantity"])
+  	//	) {
 			
-			saveOrder($_POST["product"], $_POST["quantity"]);
-	}
+	//		saveOrder($_POST["product"], $_POST["quantity"]);
+	//}
 	
-	$people = $Order->AllOrders();
+	//$people = $Order->AllOrders();
 	
 	//echo "<pre>";
 	//var_dump($people);
@@ -93,12 +93,6 @@
 </p>
 
 
-
-<form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
 
 <h2>Autod</h2>
 
