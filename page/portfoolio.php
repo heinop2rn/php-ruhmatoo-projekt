@@ -97,7 +97,7 @@
 			
 			<br>
 			<form action="demo_form.asp" id="usrform">
-			<textarea name="comment" form="usrform" rows="5" cols="35">Kirjelda ennast...</textarea>
+			<textarea name="comment" form="usrform" rows="5" cols="35" placeholder="BIO - Fotograafi kirjeldus"></textarea>
 			</div>
 			
 		</div>
