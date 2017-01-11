@@ -2,23 +2,21 @@
 
 	require("../functions.php");
 	
-	
 	require("../class/Portfoolio.class.php");
 	$Portfoolio = new Portfoolio($mysqli);
 	
 	require("../class/Helper.Class.php");
 	$Helper = new Helper($mysqli);
 	
-	require("../class/User.class.php");
-	
 	$PictureError = "";
 	
 	//Kas on sisse loginud, kui ei ole siis
 	//suunata login lehele
+	//kommentaar
 	if (!isset($_SESSION["userId"])) {
 		
-		header("Location: login.php");
-		exit();
+		//header("Location: login.php");
+		//exit();
 	}
 
 	//kas ?logout on aadressireal
@@ -37,29 +35,21 @@
 		unset($_SESSION["message"]);
 	}
 	
-	if(isset($_POST["facebooki_leht"]) &&
- 			isset($_POST["blogi"]) &&
-			isset($_POST["portfoolio"]) &&
-			isset($_POST["kirjeldus"]) &&
- 			!empty($_POST["facebooki_leht"]) &&
-			!empty($_POST["blogi"]) &&
-			!empty($_POST["portfoolio"]) &&
- 			!empty($_POST["kirjeldus"])
-  		) {
-			
+	
+	if(isset($_POST["insert"]))  {
+		if ( empty ( $_POST["insert"] ) ) {
 			$Portfoolio->savePortfolio($Helper->cleanInput($_POST["facebooki_leht"]), $Helper->cleanInput($_POST["blogi"]), $Helper->cleanInput($_POST["portfoolio"]), $Helper->cleanInput($_POST["kirjeldus"]));
-}
+	}
+	
 ?>
 <?php require("../partials/header.php");?>
 
-<p>
+			Loo portfoolio! <a href="user.php"><?=$_SESSION["userEmail"];?> -</a>
+			<a href="?logout=1">Logi välja</a>
 
-	Loo portfoolio! <a href="user.php"><?=$_SESSION["userEmail"];?> -</a>
-	<a href="?logout=1">Logi välja</a>
+<form method="POST">
 
-</p>
-
-<div class="container">
+	´<div class="container">
 		<div class="row">
 			<div class="col-sm-4 col-md-3 col-sm-offset-4 col-md-offset-3">
 			<form method="POST">
@@ -74,12 +64,14 @@
 				<input class="form-control" type="text" name="Portfoolioaddress" placeholder="Portfoolio link">
 			<br>
 			<div class="form-group">
-			<textarea rows="4" cols="34">Kirjelda ennast...</textarea>
+			<form action="demo_form.asp" id="usrform">
+			<textarea name="comment" form="usrform" rows="5" cols="35" placeholder="BIO - Fotograafi kirjeldus"></textarea>
 			<br>
 			<br>
 			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Lisa info">
 			</div>
+			</div>
+			</div>
 		</div>
-	</div>
-</div>
+</html>
 <?php require("../partials/footer.php");?>
