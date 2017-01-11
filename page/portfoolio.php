@@ -18,6 +18,7 @@
 	
 	//Kas on sisse loginud, kui ei ole siis
 	//suunata login lehele
+	//kommentaar
 	if (!isset($_SESSION["userId"])) {
 		
 		//header("Location: login.php");

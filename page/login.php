@@ -187,8 +187,7 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 
 	<div class="container">
 		<div class="row">
-			
-			<div class="col-sm-4 col-md-3">
+			<div class="col-sm-4 col-md-4">
 			<h1>Log in</h1>
 
 		
@@ -203,8 +202,8 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 			</div>
 			
 		
-			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Log in 1">
-			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Log in 2">
+			<input class="btn btn-success btn-sm hidden-xs" type="submit" value="Log in">
+			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Log in">
 			
 		</form>
 			</div>
@@ -244,8 +243,6 @@ $signupNameAnswer = (isset($_POST['signupName'])) ? $_POST['signupName'] : '';
 			<input class="btn btn-success btn-sm btn-block visible-xs-block" type="submit" value="Create your account">
 			
 		</form>
-
-		<!--Töökindla tellimusvormi loomine.-->
 		
 	</body>
 			</div>

@@ -23,7 +23,7 @@ class Order {
 		");
 		echo $this->connection->error;
 		
-		$stmt->bind_result($id, $product, $quantity, $created);
+		$stmt->bind_result($id, $product, $quantity);
 		$stmt->execute();
 		
 		

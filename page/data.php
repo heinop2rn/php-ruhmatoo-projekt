@@ -2,14 +2,8 @@
 
 	require("../functions.php");
 	
-	require("../class/Car.Class.php");
-	$Car = new Car($mysqli);
-	
 	require("../class/Helper.Class.php");
 	$Helper = new Helper($mysqli);
-	
-	require("../class/Order.Class.php");
-	$Order = new Order($mysqli);
 	
 	//Kas on sisse loginud, kui ei ole siis
 	//suunata login lehele
