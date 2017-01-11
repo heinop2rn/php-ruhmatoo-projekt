@@ -2,19 +2,12 @@
 
 	require("../functions.php");
 	
-	require("../class/Car.Class.php");
-	$Car = new Car($mysqli);
-	
 	require("../class/Portfoolio.class.php");
 	$Portfoolio = new Portfoolio($mysqli);
 	
 	require("../class/Helper.Class.php");
 	$Helper = new Helper($mysqli);
-	
-	require("../class/Order.Class.php");
-	$Order = new Order($mysqli);
-	
-	$PictureError = "";
+
 	
 	//Kas on sisse loginud, kui ei ole siis
 	//suunata login lehele
@@ -39,6 +32,19 @@
 		
 		//kui ühe näitame siis kustuta ära, et pärast refreshi ei näitaks
 		unset($_SESSION["message"]);
+	}
+	
+		if(isset($_POST["facebooki_leht"]) &&
+ 			isset($_POST["blogi"]) &&
+			isset($_POST["portfoolio"]) &&
+			isset($_POST["kirjeldus"]) &&
+ 			!empty($_POST["facebooki_leht"]) &&
+			!empty($_POST["blogi"]) &&
+			!empty($_POST["portfoolio"]) &&
+ 			!empty($_POST["kirjeldus"])
+  		) {
+			
+			$Portfoolio->savePortfolio($Helper->cleanInput($_POST["facebooki_leht"]), $Helper->cleanInput($_POST["blogi"]), $Helper->cleanInput($_POST["portfoolio"]), $Helper->cleanInput($_POST["kirjeldus"]));
 	}
 	
 /*	
@@ -98,12 +104,13 @@
 			</div>
 			<div class="form-group">
 				<input class="form-control" type="text" name="Portfoolioaddress" placeholder="Portfoolio link">
-			
 			<br>
 			<form action="demo_form.asp" id="usrform">
 			<textarea name="comment" form="usrform" rows="5" cols="35" placeholder="BIO - Fotograafi kirjeldus"></textarea>
 			</div>
-			
+			<div class ="form-group">
+			<input class="btn btn-success btn-sm hidden-xs" input type="submit" value="Lisa info">
+			</div>
 		</div>
 	</div>
 	</div>
@@ -111,6 +118,7 @@
 </html>
 </form>
 </form>
+<!--
  <!DOCTYPE html>  
  <html>  
       <body>  
@@ -162,4 +170,6 @@
 
 
 ?>
+//-->
+
 <?php require("../partials/footer.php");?>
