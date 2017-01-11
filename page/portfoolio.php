@@ -9,14 +9,16 @@
 	require("../class/Helper.Class.php");
 	$Helper = new Helper($mysqli);
 	
+	require("../class/User.class.php");
+	
 	$PictureError = "";
 	
 	//Kas on sisse loginud, kui ei ole siis
 	//suunata login lehele
 	if (!isset($_SESSION["userId"])) {
 		
-		//header("Location: login.php");
-		//exit();
+		header("Location: login.php");
+		exit();
 	}
 
 	//kas ?logout on aadressireal
